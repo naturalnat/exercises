@@ -61,6 +61,23 @@ const movies = {
     },
 }
 
+const name = "Ben Affleck"
+
+function addActor(movies, name) {
+    let results = JSON.parse(JSON.stringify(movies))
+    counter = 0;
+
+    Object.values(movies).forEach(function (arr) {
+        if (!arr.actors.includes(name)) {
+            results[Object.keys(movies)[counter]].actors.push(name);
+        }
+        counter++
+    });
+    return results;
+};
+
+console.log(addActor(movies, name))
+
 
 /*----------------------------------------------------------------------------------------------------------------
  4) Create a procedure that takes an object in the general shape of `movies` as its lone argument and appends
