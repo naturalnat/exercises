@@ -28,7 +28,13 @@ square(array);
  For example, an input of `[{count: 1}, {count: 2}, {count: 3}]` should result in an output of `6`.
 -----------------------------------------------------------------------------------------------------------------*/
 
+let counterobj = [{ count: 1 }, { count: 2 }, { count: 3 }];
 
+function counter(counterobj) {
+    return counterobj.map(counter => counter.count).reduce((prev, curr) => prev + curr);
+};
+
+counter(counterobj);
 
 /*----------------------------------------------------------------------------------------------------------------
  3) Create a function that takes an object in the general shape of `movies` (see below) as the first argument,
