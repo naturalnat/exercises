@@ -76,7 +76,6 @@ function addActor(movies, name) {
     return results;
 };
 
-console.log(addActor(movies, name))
 
 
 /*----------------------------------------------------------------------------------------------------------------
