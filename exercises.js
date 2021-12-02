@@ -138,3 +138,12 @@ appendMovieList(movies)
 The procedure should then log the id of the first post with a userId of 7 and a title that begins with the letter "e"
 (or undefined if it does not exist). It should also log any potential retrieval errors using `console.error`.
 -----------------------------------------------------------------------------------------------------------------*/
+function getPosts() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+        .then(res => res.json())
+        .then(post => post.filter(p => p.userId === 7 && p.title.startsWith('e')))
+        .then(result => console.log(result[0].id))
+        .catch(error => console.error('Error:', error))
+}
+
+getPosts();
