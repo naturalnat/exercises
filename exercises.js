@@ -88,7 +88,50 @@ function addActor(movies, name) {
  Bonus points if the names are alphabetically sorted :)
 -----------------------------------------------------------------------------------------------------------------*/
 
+function domReplacer() {
+    const newList = [...document.querySelectorAll('body *')];
+    const texts = new Set(newList.map(x => x.innerHTML));
+    let removed = false;
+    newList.forEach(item => {
+        if (texts.has(item.innerHTML)) {
+            texts.delete(item.innerHTML);
+        }
+        else {
+            item.remove();
+            removed = true;
+        }
+    })
+    if (removed == true) {
+        document.body.append('This list has been replaced due to duplicates.');
+    }
+}
 
+function domAdder(listItem) {
+    let domlist = document.createElement("ul");
+
+    listItem.forEach((function (ele) {
+        let node = document.createElement("li");
+        let text = document.createTextNode(ele);
+        node.appendChild(text);
+        domlist.appendChild(node);
+    }))
+    document.body.appendChild(domlist);
+    domReplacer();
+}
+
+function appendMovieList(movies) {
+    let list = []
+
+    Object.values(movies).forEach(function (arr) {
+        arr.actors.forEach(function (actor) {
+            list.push(actor);
+        })
+    })
+    
+    domAdder(list.sort((a, b) => a.localeCompare(b)));
+}
+
+appendMovieList(movies)
 
 /*----------------------------------------------------------------------------------------------------------------
 5) Create a procedure that retrieves the data from the REST API endpoint hosted here: https://jsonplaceholder.typicode.com/posts.
