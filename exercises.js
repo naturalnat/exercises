@@ -31,7 +31,7 @@ square(array);
 let counterobj = [{ count: 1 }, { count: 2 }, { count: 3 }];
 
 function counter(counterobj) {
-    return counterobj.map(counter => counter.count).reduce((prev, curr) => prev + curr);
+    return counterobj.map(counter => counter.count).reduce((prev, curr) => prev + curr, 0);
 };
 
 counter(counterobj);
@@ -64,8 +64,8 @@ const movies = {
 const name = "Ben Affleck"
 
 function addActor(movies, name) {
-    let results = JSON.parse(JSON.stringify(movies))
-    counter = 0;
+    const results = JSON.parse(JSON.stringify(movies))
+    const counter = 0;
 
     Object.values(movies).forEach(function (arr) {
         if (!arr.actors.includes(name)) {
@@ -76,6 +76,9 @@ function addActor(movies, name) {
     return results;
 };
 
+//.entries
+//for in loop
+//reduce 
 
 
 /*----------------------------------------------------------------------------------------------------------------
@@ -101,17 +104,20 @@ function domReplacer() {
             removed = true;
         }
     })
-    if (removed == true) {
+    if (removed) {
         document.body.append('This list has been replaced due to duplicates.');
     }
 }
 
+//use set where getting actor names on data instead of html elements - update dom after manipulating data 
+//get rid of list - > new list 
+
 function domAdder(listItem) {
-    let domlist = document.createElement("ul");
+    const domlist = document.createElement("ul");
 
     listItem.forEach((function (ele) {
-        let node = document.createElement("li");
-        let text = document.createTextNode(ele);
+        const node = document.createElement("li");
+        const text = document.createTextNode(ele);
         node.appendChild(text);
         domlist.appendChild(node);
     }))
@@ -120,14 +126,17 @@ function domAdder(listItem) {
 }
 
 function appendMovieList(movies) {
-    let list = []
+    const list = []
 
     Object.values(movies).forEach(function (arr) {
         arr.actors.forEach(function (actor) {
             list.push(actor);
         })
     })
-    
+    //list -> set here 
+    //easier to work w array than set 
+    //sort stuff here then render to dom
+
     domAdder(list.sort((a, b) => a.localeCompare(b)));
 }
 
@@ -142,7 +151,10 @@ function getPosts() {
     fetch("https://jsonplaceholder.typicode.com/posts")
         .then(res => res.json())
         .then(post => post.filter(p => p.userId === 7 && p.title.startsWith('e')))
-        .then(result => console.log(result[0].id))
+        .then(result => console.log(result[0]?.id)) //this would break if empty array, ?. will return undefined if not exist
+        //nullish coalescing operator - would ensure no error 
+        //undefined.id -> cannot read property of undefined 
+        //.find function - finds the first, returns undefined if doesn't find 
         .catch(error => console.error('Error:', error))
 }
 
